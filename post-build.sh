@@ -2,7 +2,7 @@
 shopt -s extglob
 
 SPIRVCROSSJ_DIR=`pwd`
-JAVA_DIR="$SPIRVCROSSJ_DIR/src/main/java/graphics/scenery/spirvcrossj/"
+JAVA_DIR="$SPIRVCROSSJ_DIR/spirvcrossj.base/src/main/java/graphics/scenery/spirvcrossj/base"
 
 unameOut="$(uname -s)"
 case "${unameOut}" in

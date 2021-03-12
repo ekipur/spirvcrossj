@@ -1,4 +1,4 @@
-%module libspirvcrossj
+%module LibSPIRVCrossJ
 
 %include "typemaps.i"
 %include "std_except.i"
@@ -13,7 +13,7 @@
 //%javaconst(1);
 
 %typemap(javaimports) EShLanguageMask %{
-import static graphics.scenery.spirvcrossj.EShLanguage.*;
+import static graphics.scenery.spirvcrossj.base.EShLanguage.*;
 %}
 
 // for consistency due to incompatible change in SWIG 3.0.11

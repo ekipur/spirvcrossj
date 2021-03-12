@@ -1,9 +1,11 @@
-package graphics.scenery.spirvcrossj;
+package graphics.scenery.spirvcrossj.utils;
 
+import graphics.scenery.spirvcrossj.base.*;
 import org.junit.Test;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -14,21 +16,35 @@ import java.util.stream.Collectors;
  *
  * @author Ulrik G?nther <hello@ulrik.is>
  */
-public class TestGLSLToVulkan {
+public class TestGLSLToVulkan
+{
+  static {
+    Loader.INSTANCE.loadNatives();
+  }
 
   @Test
-  public void convertGLSLToVulkan() throws IOException, URISyntaxException, InterruptedException {
-    Loader.loadNatives();
+  public void convertGLSLToVulkan()
+    throws IOException, URISyntaxException, InterruptedException
+  {
+    //Loader.loadNatives();
 
-    BufferedReader in = new BufferedReader(new InputStreamReader(this.getClass().getResourceAsStream("shaderFileList.txt")));
+    InputStream is = this.getClass().getClassLoader()
+                         .getResourceAsStream("shaderFileList.txt");
+
+    if (is == null) {
+      throw new RuntimeException("Failed to read shaderFileList.txt");
+    }
+
+    BufferedReader in = new BufferedReader(new InputStreamReader(is));
     List<String> spvFileList = in.lines().collect(Collectors.toList());
     in.close();
 
-    if (!libspirvcrossj.initializeProcess()) {
+    if (!LibSPIRVCrossJ.initializeProcess()) {
       throw new RuntimeException("glslang failed to initialize.");
     }
 
-    final SWIGTYPE_p_TBuiltInResource resources = libspirvcrossj.getDefaultTBuiltInResource();
+    final SWIGTYPE_p_TBuiltInResource resources = LibSPIRVCrossJ
+      .getDefaultTBuiltInResource();
 
     for (String filename : spvFileList) {
 
@@ -39,21 +55,24 @@ public class TestGLSLToVulkan {
 
       final String code;
       try {
-        BufferedReader spvReader = new BufferedReader(new InputStreamReader(this.getClass().getResourceAsStream(filename)));
+        BufferedReader spvReader = new BufferedReader(new InputStreamReader(this
+                                                                              .getClass()
+                                                                              .getResourceAsStream(
+                                                                                filename)));
         code = spvReader.lines().collect(Collectors.joining("\n"));
         spvReader.close();
-      } catch(NullPointerException e) {
+      } catch (NullPointerException e) {
         continue;
       }
 
       final String dummyShader[] = {
-              code
+        code
       };
 
-      final String extension = filename.substring(filename.lastIndexOf('.')+1);
+      final String extension = filename.substring(filename.lastIndexOf('.') + 1);
       int shaderType = 0;
 
-      switch(extension) {
+      switch (extension) {
         case "vert":
           shaderType = EShLanguage.EShLangVertex;
           break;
@@ -80,7 +99,10 @@ public class TestGLSLToVulkan {
 
       final TShader shader = new TShader(shaderType);
 
-      System.out.println(filename + ": Compiling shader code  (" + dummyShader[0].length() + " bytes)... ");
+      System.out.println(filename
+                         + ": Compiling shader code  ("
+                         + dummyShader[0].length()
+                         + " bytes)... ");
 
       final Boolean shouldFail = code.contains("ERROR");
       if (shouldFail) {
@@ -105,7 +127,7 @@ public class TestGLSLToVulkan {
         throw new RuntimeException("Compilation of " + filename + " failed");
       }
 
-      if(compileFail && shouldFail) {
+      if (compileFail && shouldFail) {
         System.out.println("Linking skipped as compilation was expected to fail...");
         continue;
       }
@@ -128,9 +150,9 @@ public class TestGLSLToVulkan {
         throw new RuntimeException("Linking of program " + filename + " failed!");
       }
 
-      if(!linkFail && !compileFail && !shouldFail) {
+      if (!linkFail && !compileFail && !shouldFail) {
         final IntVec spirv = new IntVec();
-        libspirvcrossj.glslangToSpv(program.getIntermediate(shaderType), spirv);
+        LibSPIRVCrossJ.glslangToSpv(program.getIntermediate(shaderType), spirv);
 
         System.out.println("Generated " + spirv.capacity() + " bytes of SPIRV bytecode.");
 //        assert(spirv.capacity() % 4 == 0);
@@ -140,7 +162,6 @@ public class TestGLSLToVulkan {
       }
 
     }
-
-    libspirvcrossj.finalizeProcess();
+    LibSPIRVCrossJ.finalizeProcess();
   }
 }

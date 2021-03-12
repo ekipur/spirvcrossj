@@ -6,5 +6,7 @@ target/
 .*.swp
 
 # also ignore SWIG-generated classes and binaries
-src/main/java/graphics/scenery/spirvcrossj/*.java
-src/main/java/graphics/scenery/spirvcrossj/*.cxx
+spirvcrossj.base/src/main/java/graphics/scenery/spirvcrossj/base/*.*
+spirvcrossj.natives/src/main/resources/graphics/scenery/spirvcrossj/natives/*.*
+
+!**/.DONTIGNOREDIRECTORY

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>graphics.scenery</groupId>
+    <artifactId>spirvcrossj</artifactId>
+    <version>0.7.1-1.1.106.0-J9-SNAPSHOT</version>
+  </parent>
+
+  <artifactId>spirvcrossj.natives</artifactId>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-source-plugin</artifactId>
+        <version>3.0.1</version>
+        <executions>
+          <execution>
+            <!-- See also: pom.xml (spirvcrossj) -->
+            <id>source-exclude-resources</id>
+            <configuration>
+              <skipSource>true</skipSource>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+
+</project>

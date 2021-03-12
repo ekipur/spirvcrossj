@@ -5,7 +5,8 @@
 
     <groupId>graphics.scenery</groupId>
     <artifactId>spirvcrossj</artifactId>
-    <version>0.7.1-1.1.106.0-SNAPSHOT</version>
+    <version>0.7.1-1.1.106.0-J9-SNAPSHOT</version>
+    <packaging>pom</packaging>
     <inceptionYear>2016</inceptionYear>
 
     <name>spirvcrossj</name>
@@ -16,11 +17,17 @@
         <url>http://scenery.graphics</url>
     </organization>
 
+    <modules>
+        <module>spirvcrossj.natives</module>
+        <module>spirvcrossj.base</module>
+        <module>spirvcrossj.utils</module>
+    </modules>
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
+
+        <jdk.version>1.9</jdk.version>
     </properties>
 
     <developers>
@@ -72,7 +79,7 @@
     </distributionManagement>
 
     <profiles>
-        <profile>
+        <!--profile>
             <id>platform-windows</id>
             <activation>
                 <os>
@@ -103,8 +110,8 @@
                     </plugin>
                 </plugins>
             </build>
-        </profile>
-        <profile>
+        </profile-->
+        <!--profile>
             <id>platform-linux</id>
             <activation>
                 <os>
@@ -135,7 +142,7 @@
                     </plugin>
                 </plugins>
             </build>
-        </profile>
+        </profile-->
         <profile> 
             <id>release</id>
             <build>
@@ -190,7 +197,7 @@
                 </plugins>
             </build>
         </profile>
-        <profile>
+        <!--profile>
             <id>platform-osx</id>
             <activation>
                 <os>
@@ -222,10 +229,52 @@
                     </plugin>
                 </plugins>
             </build>
-        </profile>
+        </profile-->
     </profiles>
 
     <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.7.0</version>
+                    <configuration>
+                        <source>${jdk.version}</source>
+                        <target>${jdk.version}</target>
+                    </configuration>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-source-plugin</artifactId>
+                    <version>3.0.1</version>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-javadoc-plugin</artifactId>
+                    <version>3.1.0</version>
+                    <configuration>
+                        <!-- JDK-8212233 -->
+                        <source>8</source>
+                    </configuration>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-site-plugin</artifactId>
+                    <version>3.7.1</version>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-project-info-reports-plugin</artifactId>
+                    <version>3.1.1</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -233,59 +282,27 @@
                 <version>3.0.1</version>
                 <executions>
                     <execution>
-                        <id>attach-sources</id>
+                        <!-- See also: pom.xml (spirvcrossj.natives) -->
+                        <id>source-exclude-resources</id>
                         <goals>
                             <goal>jar</goal>
                         </goals>
-                        <configuration>
-                            <!-- NB: Exclude native libraries from sources JAR. -->
-                            <excludes>
-                                <exclude>*.*</exclude>
-                            </excludes>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>3.0.2</version>
-                <executions>
-                    <execution>
-                        <!-- NB: Override default execution of the main JAR. -->
-                        <id>default-jar</id>
                         <phase>package</phase>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                        <configuration>
-                            <!-- NB: Nesting config in this execution excludes native libraries from the main JAR only. -->
-                            <excludes>
-                                <exclude>*.*</exclude>
-                            </excludes>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <goals>
-                            <goal>test-jar</goal>
-                        </goals>
                     </execution>
                 </executions>
             </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>2.10.2</version>
+                <version>3.2.0</version>
                 <executions>
                     <execution>
-                        <id>attach-javadocs</id>
+                        <id>javadoc-aggregate-jar</id>
                         <goals>
-                            <goal>jar</goal>
+                            <goal>aggregate-jar</goal>
                         </goals>
-                        <configuration>
-                            <failOnError>false</failOnError>
-                            <additionalparam>-Xdoclint:none</additionalparam>
-                        </configuration>
+                        <phase>package</phase>
                     </execution>
                 </executions>
             </plugin>
@@ -297,7 +314,7 @@
         </plugins>
     </build>
 
-    <dependencies>
+    <!--dependencies>
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
@@ -315,6 +332,6 @@
             <version>4.13.1</version>
             <scope>test</scope>
         </dependency>
-    </dependencies>
+    </dependencies-->
 
 </project>
