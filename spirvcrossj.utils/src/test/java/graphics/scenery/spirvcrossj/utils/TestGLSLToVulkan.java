@@ -54,16 +54,13 @@ public class TestGLSLToVulkan
       final String[] names = {filename};
 
       final String code;
-      try {
-        BufferedReader spvReader = new BufferedReader(new InputStreamReader(this
-                                                                              .getClass()
-                                                                              .getResourceAsStream(
-                                                                                filename)));
-        code = spvReader.lines().collect(Collectors.joining("\n"));
-        spvReader.close();
-      } catch (NullPointerException e) {
-        continue;
-      }
+      BufferedReader spvReader = new BufferedReader(new InputStreamReader(this
+                                                                            .getClass()
+                                                                            .getClassLoader()
+                                                                            .getResourceAsStream(
+                                                                              filename)));
+      code = spvReader.lines().collect(Collectors.joining("\n"));
+      spvReader.close();
 
       final String dummyShader[] = {
         code
