@@ -17,6 +17,8 @@
       <groupId>graphics.scenery</groupId>
       <artifactId>spirvcrossj.natives</artifactId>
       <version>0.7.1-1.1.106.0-J9-SNAPSHOT</version>
+      <!-- See also: pom.xml (spirvcrossj.natives) -->
+      <classifier>${os.name}</classifier>
     </dependency>
   </dependencies>
 </project>
