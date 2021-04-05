@@ -2,8 +2,8 @@
 shopt -s extglob
 
 SPIRVCROSSJ_DIR=`pwd`
-JAVA_DIR="$SPIRVCROSSJ_DIR/spirvcrossj.base/src/main/java/graphics/scenery/spirvcrossj/base"
-LIB_DIR="$SPIRVCROSSJ_DIR/spirvcrossj.natives/src/main/resources/graphics/scenery/spirvcrossj/natives"
+JAVA_DIR="$SPIRVCROSSJ_DIR/spirvcrossj-base/src/main/java/graphics/scenery/spirvcrossj/base"
+LIB_DIR="$SPIRVCROSSJ_DIR/spirvcrossj-natives/src/main/resources/graphics/scenery/spirvcrossj/natives"
 
 echo "Cleaning old wrapper files ..."
 rm $JAVA_DIR/*.*

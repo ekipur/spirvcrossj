@@ -18,9 +18,9 @@
     </organization>
 
     <modules>
-        <module>spirvcrossj.natives</module>
-        <module>spirvcrossj.base</module>
-        <module>spirvcrossj.utils</module>
+        <module>spirvcrossj-natives</module>
+        <module>spirvcrossj-base</module>
+        <module>spirvcrossj-utils</module>
     </modules>
 
     <properties>

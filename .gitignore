@@ -6,19 +6,9 @@ target/
 .*.swp
 
 # also ignore SWIG-generated classes and binaries
-spirvcrossj.base/src/main/java/graphics/scenery/spirvcrossj/base/*.*
-spirvcrossj.natives/src/main/resources/graphics/scenery/spirvcrossj/natives/*.*
+spirvcrossj-base/src/main/java/graphics/scenery/spirvcrossj/base/*.*
+spirvcrossj-natives/src/main/resources/graphics/scenery/spirvcrossj/natives/*.*
 
-# preserve empty packages (*/base,*/natives) since they are needed for
+# Preserve empty packages (*/base,*/natives) since they are needed for
 # SWIG-generated classes and packages
-!**/.DONTIGNOREDIRECTORY
-
-# dont commit changes by local builds
-/deploy/
-/glslang/
-
-# not used by forked ekipur/spirvcrossj; have to be updated and removed from .gitignore
-# if they are used in a cloned or merged ekipur/spirvcrossj
-/.travis.yml
-/appveyor.yml
-/appveyor-maven-proxy.ps1
+!**/.SWIG_DIRECTORY_DONT_IGNORE
