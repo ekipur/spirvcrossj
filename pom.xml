@@ -1,219 +1,160 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
 
-    <groupId>graphics.scenery</groupId>
-    <artifactId>spirvcrossj</artifactId>
-    <version>0.7.1-1.1.106.0-J9-SNAPSHOT</version>
-    <packaging>pom</packaging>
-    <inceptionYear>2016</inceptionYear>
+  <groupId>graphics.scenery</groupId>
+  <artifactId>spirvcrossj</artifactId>
+  <version>0.7.1-1.1.106.0-J9-SNAPSHOT</version>
+  <packaging>pom</packaging>
+  <inceptionYear>2016</inceptionYear>
 
-    <name>spirvcrossj</name>
-    <description>Java bindings for Khronos' SPIRV-Cross and glslang</description>
+  <name>spirvcrossj</name>
+  <description>Java bindings for Khronos' SPIRV-Cross and glslang</description>
+  <url>http://scenery.graphics</url>
+  <organization>
+    <name>scenery</name>
     <url>http://scenery.graphics</url>
-    <organization>
-        <name>scenery</name>
-        <url>http://scenery.graphics</url>
-    </organization>
+  </organization>
 
-    <modules>
-        <module>spirvcrossj-natives</module>
-        <module>spirvcrossj-base</module>
-        <module>spirvcrossj-utils</module>
-    </modules>
+  <modules>
+    <module>spirvcrossj-natives</module>
+    <module>spirvcrossj-base</module>
+    <module>spirvcrossj-utils</module>
+  </modules>
 
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-        <jdk.version>1.9</jdk.version>
-    </properties>
+    <jdk.version>1.9</jdk.version>
+    <classifier.os>${os.name}-${os.arch}</classifier.os>
+  </properties>
 
-    <developers>
-        <developer>
-            <id>skalarproduktraum</id>
-            <name>Ulrik Günther</name>
-            <email>hello@ulrik.is</email>
-            <url>http://ulrik.is/</url>
-            <roles>
-                <role>lead</role>
-                <role>developer</role>
-            </roles>
-            <timezone>+1</timezone>
-        </developer>
-    </developers>
+  <developers>
+    <developer>
+      <id>skalarproduktraum</id>
+      <name>Ulrik Günther</name>
+      <email>hello@ulrik.is</email>
+      <url>http://ulrik.is/</url>
+      <roles>
+        <role>lead</role>
+        <role>developer</role>
+      </roles>
+      <timezone>+1</timezone>
+    </developer>
+    <developer>
+      <id>ekipur</id>
+      <name>Walter Weber-Groß</name>
+      <email>ekipur@arco.in-berlin.de</email>
+      <roles>
+        <role>contributor</role>
+        <role>developer</role>
+      </roles>
+      <timezone>Europe/Berlin</timezone>
+    </developer>
+  </developers>
 
-    <scm>
-        <connection>scm:git:git://github.com/skalarproduktraum/spirvcrossj</connection>
-        <developerConnection>scm:git:git@github.com:skalarproduktraum/spirvcrossj</developerConnection>
-        <tag>HEAD</tag>
-        <url>https://github.com/scenerygraphics/spirvcrossj</url>
-    </scm>
-    <issueManagement>
-        <system>GitHub</system>
-        <url>https://github.com/skalarproduktraum/spirvcrossj/issues</url>
-    </issueManagement>
-    <ciManagement>
-        <system>Travis</system>
-        <url>https://travis-ci.org/skalarproduktraum/spirvcrossj/</url>
-    </ciManagement>
+  <issueManagement>
+    <system>GitHub</system>
+    <url>https://github.com/ekipur/spirvcrossj/issues</url>
+  </issueManagement>
 
-    <licenses>
-        <license>
-            <name>BSD 2-Clause License</name>
-            <url>http://opensource.org/licenses/BSD-2-Clause</url>
-            <distribution>repo</distribution>
-        </license>
-    </licenses>
+  <licenses>
+    <license>
+      <name>BSD 2-Clause License</name>
+      <url>http://opensource.org/licenses/BSD-2-Clause</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
 
-    <distributionManagement>
-        <snapshotRepository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-        </snapshotRepository>
-        <repository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-        </repository>
-    </distributionManagement>
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>graphics.scenery</groupId>
+        <artifactId>spirvcrossj-natives</artifactId>
+        <version>${project.version}</version>
+        <classifier>${classifier.os}</classifier>
+      </dependency>
+      <dependency>
+        <groupId>graphics.scenery</groupId>
+        <artifactId>spirvcrossj-utils</artifactId>
+        <version>${project.version}</version>
+        <scope>compile</scope>
+      </dependency>
+      <dependency>
+        <groupId>graphics.scenery</groupId>
+        <artifactId>spirvcrossj-base</artifactId>
+        <version>${project.version}</version>
+        <scope>compile</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
 
-    <profiles>
-        <profile> 
-            <id>release</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-gpg-plugin</artifactId>
-                        <version>1.6</version>
-                        <executions>
-                            <execution>
-                                <id>sign-artifacts</id>
-                                <phase>verify</phase>
-                                <goals>
-                                    <goal>sign</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                        <configuration>
-                            <gpgArguments>
-                                <arg>-v</arg>
-                                <arg>--batch</arg>
-                                <arg>${env.PINENTRY_MODE}</arg>
-                            </gpgArguments>
-                        </configuration>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.sonatype.plugins</groupId>
-                        <artifactId>nexus-staging-maven-plugin</artifactId>
-                        <version>1.6.7</version>
-                        <extensions>true</extensions>
-                        <configuration>
-                            <serverId>ossrh</serverId>
-                            <nexusUrl>https://oss.sonatype.org/</nexusUrl>
-                            <autoReleaseAfterClose>false</autoReleaseAfterClose>
-                        </configuration>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.honton.chas</groupId>
-                        <artifactId>exists-maven-plugin</artifactId>
-                        <version>0.0.1</version>
-                        <configuration>
-                            <property>maven.deploy.skip</property>
-                        </configuration>
-                        <executions>
-                            <execution>
-                                <goals>
-                                    <goal>exists</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
+  <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>3.7.0</version>
+          <configuration>
+            <source>${jdk.version}</source>
+            <target>${jdk.version}</target>
+          </configuration>
+        </plugin>
 
-    <build>
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-compiler-plugin</artifactId>
-                    <version>3.7.0</version>
-                    <configuration>
-                        <source>${jdk.version}</source>
-                        <target>${jdk.version}</target>
-                    </configuration>
-                </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-source-plugin</artifactId>
+          <version>3.0.1</version>
+        </plugin>
 
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-source-plugin</artifactId>
-                    <version>3.0.1</version>
-                </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-javadoc-plugin</artifactId>
+          <version>3.1.0</version>
+          <!-- Requires environment variable JAVA_HOME to be set! -->
+          <configuration>
+            <!-- JDK-8212233 -->
+            <source>8</source>
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
 
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-javadoc-plugin</artifactId>
-                    <version>3.1.0</version>
-                    <configuration>
-                        <!-- JDK-8212233 -->
-                        <source>8</source>
-                    </configuration>
-                </plugin>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-source-plugin</artifactId>
+        <version>3.0.1</version>
+        <executions>
+          <execution>
+            <!-- See also: pom.xml (spirvcrossj-natives) -->
+            <id>source-exclude-resources</id>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+            <phase>package</phase>
+          </execution>
+        </executions>
+      </plugin>
 
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-site-plugin</artifactId>
-                    <version>3.7.1</version>
-                </plugin>
-
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-project-info-reports-plugin</artifactId>
-                    <version>3.1.1</version>
-                </plugin>
-            </plugins>
-        </pluginManagement>
-
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-source-plugin</artifactId>
-                <version>3.0.1</version>
-                <executions>
-                    <execution>
-                        <!-- See also: pom.xml (spirvcrossj.natives) -->
-                        <id>source-exclude-resources</id>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                        <phase>package</phase>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.2.0</version>
-                <executions>
-                    <execution>
-                        <id>javadoc-aggregate-jar</id>
-                        <goals>
-                            <goal>aggregate-jar</goal>
-                        </goals>
-                        <phase>package</phase>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <plugin>
-                <artifactId>maven-deploy-plugin</artifactId>
-                <version>2.8.1</version>
-            </plugin>
-        </plugins>
-    </build>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>3.2.0</version>
+        <executions>
+          <execution>
+            <id>javadoc-aggregate-jar</id>
+            <goals>
+              <goal>aggregate</goal>
+              <goal>aggregate-jar</goal>
+            </goals>
+            <phase>package</phase>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
 </project>

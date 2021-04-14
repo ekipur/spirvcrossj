@@ -11,6 +11,7 @@
   </parent>
 
   <artifactId>spirvcrossj-natives</artifactId>
+  <version>0.7.1-1.1.106.0-J9-SNAPSHOT</version>
 
   <build>
     <plugins>
@@ -20,7 +21,7 @@
         <version>3.0.2</version>
         <configuration>
           <!-- See also: pom.xml (spirvcrossj-base) -->
-          <classifier>${os.name}</classifier>
+          <classifier>${classifier.os}</classifier>
         </configuration>
       </plugin>
       <plugin>
